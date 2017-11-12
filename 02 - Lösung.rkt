@@ -61,15 +61,15 @@
     (* 4 (PiNäherungInner 1 n))))
 ;;;Aufgabe 3
 ;Ergebnisse:
-;1.) number
-;2.) boolean
+;1.) number , da die Multiplikation dreier Zahlen wieder eine Zahl ist.
+;2.) boolean , da das Schlüsselwort not immer einen boolean liefert.
 ;3.) pair
-;4.) list
-;5.) procedure
-;6.) char
-;7.) procedure
-;8.) procedure
-;9.) string
+;4.) list , da '() die leere Liste ist.
+;5.) procedure , da sin eine Funktion ist und diese durch id auf sich selbst abgebildet wird.
+;6.) char , 
+;7.) procedure , da durch (lambda (x) x) eine Funktion definiert wird.
+;8.) procedure , da type-of eine Funktion ist.
+;9.) string , da (type-of type-of) den String "procedure" ausgibt.
 (define (type-of x)
   (cond [(boolean? x) "boolean"]
         [(pair? x) "pair"]
