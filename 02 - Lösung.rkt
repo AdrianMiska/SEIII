@@ -1,14 +1,14 @@
 #lang racket
 ;;;Aufgabe 1
-;1.) 'Flocki
-;2.) 'Flocki
-;3.) 'wuff
-;4.) 'Hund
-;5.) 'Flocki
-;6.) undefined (Flocki)
-;7.) 'wuff
-;8.) 'lily
-;9.) (wuff Hund)
+;1.) 'Flocki , da die Variable wuff den Wert 'Flocki hat.
+;2.) 'Flocki , da die Variable Hund denselben Wert, wie die Variable wuff hat.
+;3.) 'wuff , da die Variable Wolf den Wert 'wuff hat.
+;4.) 'Hund , da die Funktion quote aus Hund das Symbol 'Hund macht.
+;5.) 'Flocki , da die Variable Wolf den Wert 'wuff hat. 'wuff ausgewertet ergibt die Variable wuff, welche den Wert 'Floci hat.
+;6.) undefined , da das Symbol 'Flocki nicht ausgewertet werden kann(Die Variable Flocki wurde nicht definiert).
+;7.) 'wuff , da 'Wolf ausgewertet die Variable Wolf gibt, welche den Wert 'wuff hat.
+;8.) 'lily , da let beiden Variablen gleichzeitig einen Wert zuweist, wird für die Zuweisung von PersonC die Eingabe PersonA benutzt, welche den Wert 'lily hat.
+;9.) (wuff Hund) , da die Funktion cdr dreimal angewendet wird und dementsprechend die ersten drei Elemente der Liste wegfallen.
 ;10.) '(Flocki)
 ;11.) 'Flocki
 ;12.) 1/2
