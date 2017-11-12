@@ -10,10 +10,10 @@
 ;8.) 'lily , da let beiden Variablen gleichzeitig einen Wert zuweist, wird für die Zuweisung von PersonC die Eingabe PersonA benutzt, welche den Wert 'lily hat.
 ;9.) (wuff Hund) , da die Funktion cdr dreimal angewendet wird und dementsprechend die ersten drei Elemente der Liste wegfallen.
 ;10.) '(Flocki)
-;11.) 'Flocki
+;11.) 'Flocki  , da cdr das zweite Element der Liste ausgibt, welche mit mit cons erstellt wird. Das zweite Element hat gerade den Wert 'Flocki.
 ;12.) 1/2
-;13.) 'Wolf
-;14.) 'Flocki
+;13.) 'Wolf , da die Funktion welcherNameGiltWo 'Wolf ausgibt. Dazu wird dann das Symbol erstellt und mit eval ausgewertet, was einfach wieder 'Wolf ergibt.
+;14.) 'Flocki , da die Funktion welcherNameGiltWo 'Hund ausgibt, was mit eval ausgewertet wird und daher die Variable Hund ausgibt, welche den Wert 'Flocki hat.
 
 (define wuff 'Flocki)
 (define Hund wuff)
