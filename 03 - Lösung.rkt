@@ -14,7 +14,7 @@ da diese im Code gut lesbar ist und eine Abfrage in O(log N) ermöglicht.
                                #\i "India" #\j "Juliet"
                                #\k "Kilo" #\l "Lima"
                                #\m "Mike" #\n "November"
-                               #\o "Oscar" #\o "Papa"
+                               #\o "Oscar" #\p "Papa"
                                #\q "Quebec" #\r "Romeo"
                                #\s "Sierra" #\t "Tango"
                                #\u "Uniform" #\v "Viktor"
@@ -29,14 +29,51 @@ da diese im Code gut lesbar ist und eine Abfrage in O(log N) ermöglicht.
                                #\space " "))
 
 (define (string->phonetic s)
-  (string->phoneticInner '() (reverse (string->list s))))
-
-(define (string->phoneticInner returnee charlist)
-  (if (null? charlist) returnee
-      (string->phoneticInner (cons (hash-ref phoneticAlphabet (char-downcase (car list)) )
-                                   returnee)
-                             (cdr charlist))))
+  (letrec ([string->phoneticInner (λ (returnee charlist)
+                                    (if (null? charlist) returnee
+                                        (string->phoneticInner (cons (hash-ref phoneticAlphabet (char-downcase (car charlist)) void)
+                                                                     returnee)
+                                                               (cdr charlist))))])
+    (string->phoneticInner '() (reverse (string->list s)))))
 
 
 (string->phonetic "Hallo, dies ist ein Test.")
 (list? (string->phonetic "Hallo, dies ist ein Test."))
+
+
+;;;Aufgabe 2
+
+(require se3-bib/flaggen-module)
+
+(define flagAlphabet (hash #\a A #\b B
+                           #\c C #\d D
+                           #\e E #\f F
+                           #\g G #\h H
+                           #\i I #\j J
+                           #\k K #\l L
+                           #\m M #\n N
+                           #\o O #\p P
+                           #\q Q #\r R
+                           #\s S #\t T
+                           #\u U #\v V
+                           #\w W #\x X
+                           #\y Y #\z Z
+                           #\0 Z0 #\1 Z1
+                           #\2 Z2 #\3 Z3
+                           #\4 Z4 #\5 Z5
+                           #\6 Z6 #\7 Z7
+                           #\8 Z8 #\9 Z9))
+
+(define (string->flags s)
+  (letrec ([string->flagsInner (λ (returnee charlist)
+                                    (if (null? charlist) returnee
+                                        (string->flagsInner (cons (hash-ref flagAlphabet (char-downcase (car charlist)) void)
+                                                                     returnee)
+                                                               (cdr charlist))))])
+    (string->flagsInner '() (reverse (string->list s)))))
+
+(string->flags "Hallo, dies ist ein Test.")
+(list? (string->flags "Hallo, dies ist ein Test."))
+
+
+
