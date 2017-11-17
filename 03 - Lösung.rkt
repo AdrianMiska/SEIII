@@ -42,6 +42,9 @@ da diese im Code gut lesbar ist und eine Abfrage in O(log N) ermöglicht.
 
 
 ;;;Aufgabe 2
+#|
+Gleiche Überlegung wie in 1.
+|#
 
 (require se3-bib/flaggen-module)
 
@@ -66,14 +69,32 @@ da diese im Code gut lesbar ist und eine Abfrage in O(log N) ermöglicht.
 
 (define (string->flags s)
   (letrec ([string->flagsInner (λ (returnee charlist)
-                                    (if (null? charlist) returnee
-                                        (string->flagsInner (cons (hash-ref flagAlphabet (char-downcase (car charlist)) void)
-                                                                     returnee)
-                                                               (cdr charlist))))])
+                                 (if (null? charlist) returnee
+                                     (string->flagsInner (cons (hash-ref flagAlphabet (char-downcase (car charlist)) void)
+                                                               returnee)
+                                                         (cdr charlist))))])
     (string->flagsInner '() (reverse (string->list s)))))
 
 (string->flags "Hallo, dies ist ein Test.")
 (list? (string->flags "Hallo, dies ist ein Test."))
 
 
+;;Aufgabe 3
+#|
+Hier verzichten wir gänzlich auf ein Mapping sondern generieren den Dateinamen aus den chars.
+|#
 
+(require racket/gui/base)
+
+(define basepath "../Morse/") ;;; Hier Pfad zum Morse-Ordner eintragen!
+
+(define (string->morse s)
+  (letrec ([string->morseInner (λ (charlist)
+                                 (when (not (null? charlist))
+                                   (let ([filename (string-append basepath "Morse-" (string (char-upcase (car charlist))) ".wav")])
+                                     (when (file-exists? filename) (play-sound filename #f)))
+                                   (string->morseInner (cdr charlist))))])
+    (string->morseInner (string->list s))))
+
+
+(string->morse "Hallo, dies ist ein Test.")
