@@ -19,7 +19,6 @@
      (cons 'Rudolph '(the 'red-nosed 'reindeer)))
 
 
-
 ;;;Aufgabe 2
 (require racket/include)
 (include "phonetic.rkt")
@@ -53,4 +52,27 @@
 (display "\n\n")
 (display (notmeldung "Nautilus" "DEYJ" "NOTFALLPOSITION UNGEFÄHR 10 SM östlich Point Nemo 48° 52’ 31,75” S, 123° 23’ 33,07“ W" "Eine Riesenkrake hat das Schiff umschlungen \nGroßes Leck im Rumpf \n20 Personen an Bord \nTreiben antriebslos an Wasseroberfläche \nSende Peilzeichen"))
 (display "\n\n")
-(display (notmeldung "Maltese Falcon" "HUQ9" "NOTFALLPOSITION  54° 34’ 5,87” N, 8° 27’ 33,41” E" "SInd auf eine Sandbank aufgelaufen \n10 Mann an Bord \nDas Schiff ist 88m lang, schwarzer Rumpf \nUnfallzeit 0730 UTC \n Sende Peilzeichen"))
+(display (notmeldung "Maltese Falcon" "HUQ9" "NOTFALLPOSITION  54° 34’ 5,87” N, 8° 27’ 33,41” E" "Sind auf eine Sandbank aufgelaufen \n10 Mann an Bord \nDas Schiff ist 88m lang, schwarzer Rumpf \nUnfallzeit 0730 UTC \nSende Peilzeichen"))
+(display "\n\n")
+
+
+;;;Aufgabe 3
+;;1
+
+(define (hoch3 x) (* x x x))
+
+;Innere Auswertung
+(hoch3 (+ 3 (hoch3 3)))
+(hoch3 (+ 3 (* 3 3 3)))
+(hoch3 (+ 3 27))
+(hoch3 30)
+27000
+
+;Äußere Auswertung
+(hoch3 (+ 3 (hoch3 3)))
+(* (+ 3 (hoch3 3)) (+ 3 (hoch3 3)) (+ 3 (hoch3 3)))
+(* (+ 3 (* 3 3 3)) (+ 3 (* 3 3 3)) (+ 3 (* 3 3 3)))
+(* (+ 3 27) (+ 3 27) (+ 3 27))
+(* 30 30 30)
+27000
+
