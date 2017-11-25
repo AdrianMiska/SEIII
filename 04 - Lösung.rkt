@@ -41,11 +41,11 @@
 
 (define (notmeldung name rufzeichen position infos)
   (string-upcase (string-append (notmeldungHeader name rufzeichen)
-                 position "\n"
-                 infos "\n"
-                 "- - \n"
-                 name " " (stringlist->string (string->phonetic rufzeichen)) "\n"
-                 "over")))
+                                position "\n"
+                                infos "\n"
+                                "- - \n"
+                                name " " (stringlist->string (string->phonetic rufzeichen)) "\n"
+                                "over")))
 
 ;;3
 (display (notmeldung "Unicorn" "UCRN" "NOTFALLPOSITION UNGEFÄHR 5 SM NORDWESTLICH LEUCHTTURM ROTER SAND" "NOTFALLZEIT 1000 UTC \nSCHWERE SCHLAGSEITE WIR SINKEN \nKEINE VERLETZTEN \nSECHS MANN GEHEN IN DIE RETTUNGSINSEL \nSCHNELLE HILFE ERFORDERLICH \nICH SENDE DEN TRÄGER"))
@@ -76,3 +76,24 @@
 (* 30 30 30)
 27000
 
+;;2
+;Für normale Ausdrücke verwendet Racket die innere Auswertung, für S-Expressions die äußere Auswertung.
+
+;;3
+
+(define (new-if condition? then-clause else-clause)
+  (cond (condition? then-clause)
+        (else else-clause)))
+
+(define (faculty product counter max-count)
+  (new-if (> counter max-count)
+          product
+          (faculty (* counter product)
+                   (+ counter 1) max-count)))
+
+;Beim Ausführen von
+;(faculty 1 1 5)
+;kommt es zu einer Endlosschleife und letztendlich zu einem volllaufen des Speichers, weil der zweite "Zweig" von 
+;faculty immer, selbst bei der vermeintlichen Abbruchbedingung, durchlaufen wird.
+;Mit einer S-Expression würde dies vermieden werden, da new-if schon bei der Auswertung von (> counter max-count)
+;aufhören und den zweiten Zweig gar nicht erst auswerten würde.
