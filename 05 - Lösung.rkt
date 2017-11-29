@@ -1,4 +1,5 @@
 #lang racket
+;Zu Aufgabe 1.1.1
 (require se3-bib/butterfly-module)
 ;Die unterschiedlichen Merkmalstypen als Listen dargestellt
 (define Musterung '(Sterne Punkte Streifen))
