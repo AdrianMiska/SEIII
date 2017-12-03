@@ -63,7 +63,7 @@
 ;Funktion, die einen Schmetterling nach seinen dominanten Merkmalen zeichnet
 (define (zeichne A)
   (let ([sichtbar (gibDominant A)])
-    (show-butterfly (car sichtbar) (cadr sichtbar) (caddr sichtbar) (cadddr sichtbar))))
+    (apply show-butterfly sichtbar)))
 ;Hilfsfunktion: Die Eingabe soll eine Liste sein, die aus 8 Merkmalen besteht, wobei zu jedem Merkmaltyp genau zwei Merkmale
 ;enthalten sein sollen, die in der Liste bereits nebeneinander stehen. Die Hilfsfunktion sortiert die liste nun so um,
 ;dass jeweils das dominante Merkmal links neben dem zugehörigen rezessiven Merkmal steht.
@@ -109,14 +109,14 @@
                          (- k 1)
                          A B C D 
                          (cons
-                          (list-ref (list (list-ref A k) (list-ref B k)) (random 2))
+                          (list-ref (list (list-ref A k) (list-ref C k)) (random 2))
                           (cons
-                           (list-ref (list (list-ref C k) (list-ref D k)) (random 2))
+                           (list-ref (list (list-ref B k) (list-ref D k)) (random 2))
                            acc)))
                          (cons
-                          (list-ref (list (list-ref A k) (list-ref B k)) (random 2))
+                          (list-ref (list (list-ref A k) (list-ref C k)) (random 2))
                           (cons
-                           (list-ref (list (list-ref C k) (list-ref D k)) (random 2))
+                           (list-ref (list (list-ref B k) (list-ref D k)) (random 2))
                            acc))))])
     (Hilfsfunktion2 (Inner 3 (gibDominant V) (gibRezessiv V) (gibDominant M) (gibRezessiv M) '()))))
 ;Funktion, die bei Eingabe zweier Schmetterlinge und einer natürlichen Zahl, die mindestens 1 ist, entsprechend
@@ -128,3 +128,5 @@
                          V M (- k 1) (cons (generiereKind V M) acc))
                         (cons (generiereKind V M) acc)))])
     (map zeichne (Inner V M n '()))))
+
+(generiereKinder (createButterfly 'red 'stripes 'curved 'hexagon) (createButterfly 'yellow 'star 'curly 'rhomb) 100)
