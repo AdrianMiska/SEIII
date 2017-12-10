@@ -78,9 +78,9 @@ merge-sort linear weil nur ein Aufruf, Baum weil mehrere Verzweigungen, direkt w
                   0
                   125
                   tannenbaum))
-;Das Geweih eines Rentiers, linksOderRechts soll die Wert 'r oder 'l annehmen und festhalten, ob wir das linke oder rechte
+;Das Geweih eines Rentiers, linksOderRechts soll die Werte 'r oder 'l annehmen und festhalten, ob wir das linke oder rechte
 ;Geweihstück haben wollen. Die Variable L muss einen Wert der Form 2^n annehmen, wobei n eine natürliche Zahl
-;ist(n=1 ist nicht erlaubt). n ist dann die Anzahl der Verzweigungen des Geweihs und L ist die Länge der untersten Geweihstücks.
+;ist(n=0 ist nicht erlaubt). n ist dann die Anzahl der Verzweigungen des Geweihs und L ist die Länge des untersten Geweihstücks.
 ;Die Funktion geweih wird bei der Funktion rentierKopf mit L=32 aufgerufen.
 (define (geweih L linksOderRechts)
   (letrec ([Inner (lambda (L leftorright)
