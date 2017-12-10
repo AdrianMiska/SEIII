@@ -1,4 +1,42 @@
 #lang racket
+
+;;;Aufgabe 1
+#|
+
+1.
+            | linear  |  Baum  |  geschachtelt  |  direkt  |  end-
+
+take        |    X    |        |                |     X    |
+drop        |    X    |        |                |     X    |   X   
+merge       |         |   X    |                |     X    |
+merge-sort  |         |   X    |                |     X    |
+
+
+take: linear weil nur ein Aufruf, direkt weil keine wechselseitigen Definitionen
+drop: linear weil nur ein Aufruf, direkt weil keine wechselseitigen Definitionen, end- weil das Ergebnis der Rekursion nicht mehr verändert wird
+merge: linear weil nur ein Aufruf, Baum weil mehrere Verzweigungen, direkt weil keine wechselseitigen Definitionen
+merge-sort linear weil nur ein Aufruf, Baum weil mehrere Verzweigungen, direkt weil keine wechselseitigen Definitionen
+
+
+2. merge und merge-sort sind Funktionen höherer Ordnung, weil sie mit rel<? je eine Funktion als Argument entgegennehmen.
+
+3.
+|#
+
+(define (take-endrekursiv n acc xs)
+  (cond
+    ((null? xs) (reverse acc))
+    ((= 0 n) (reverse acc))
+    (else (take-endrekursiv (- n 1) (cons (car xs) acc) (cdr xs)))))
+
+;Probe
+(take-endrekursiv 30 '() (list 1 2 3 4 5 6 7 8 9 10))
+(take-endrekursiv 0 '() (list 1 2 3 4 5 6 7 8 9 10))
+(take-endrekursiv 5 '() (list 1 2 3 4 5 6 7 8 9 10))
+
+
+
+;;;Aufgabe 2
 (require 2htdp/image)
 (require 2htdp/universe)
 ;Tannenbaum
@@ -112,9 +150,9 @@
                                                   35
                                                   17
                                                   (overlay/offset (rectangle 10 20 'solid 'brown)
-                                                               250
-                                                               0
-                                                               (rectangle 10 20 'solid 'brown)))
+                                                                  250
+                                                                  0
+                                                                  (rectangle 10 20 'solid 'brown)))
                                   13
                                   20
                                   (line 300 0 (make-pen 'brown 10 'solid 'round 'round)))))
@@ -132,9 +170,9 @@
                                               142
                                               0
                                               (overlay/offset (line 100 0 (make-pen 'black 5 'solid 'round 'round))
-                                                        -45
-                                                        0
-                                                        (scale (/ 1 3) rentier)))))])
+                                                              -45
+                                                              0
+                                                              (scale (/ 1 3) rentier)))))])
     (overlay/align/offset 'right
                           'center
                           (Inner n)
