@@ -21,7 +21,18 @@
     (zaehlenInner x xs 0)))
 
 
+(define (zaehlen3 x xs)
+  (letrec ([count (λ (y counter)
+                    (if (eq? y x)
+                        (+ counter 1)
+                        counter))])
+    (foldl count 0 xs)))
+
+
 (zaehlen1 3 '(2 4 3 2 3 4 1))
 (zaehlen2 3 '(2 4 3 2 3 4 1))
 (zaehlen3 3 '(2 4 3 2 3 4 1))
+
+
+;;;Aufgabe 2
 
