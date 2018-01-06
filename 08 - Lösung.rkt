@@ -69,7 +69,7 @@ TODO
 
 (define cards
   (for*/list ([number numbers] [pattern patterns] [mode modes] [color colors])
-    (list number pattern)))
+    (list number pattern mode color)))
 
 (define validCombination (λ (prop1 prop2 prop3)
                            (or (and (eq? prop1 prop2) (eq? prop2 prop3) (eq? prop1 prop3))
@@ -88,5 +88,9 @@ TODO
 (is-a-set? '((2 red rectangle outline)
              (2 green rectangle outline)
              (2 green rectangle solid)))
+
+(define draw-from-deck (λ () (take (shuffle cards) 12)))
+
+(map (curry apply show-set-card) (draw-from-deck))
 
 
