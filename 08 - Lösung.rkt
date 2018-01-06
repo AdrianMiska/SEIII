@@ -30,3 +30,31 @@ TODO
 
 ;;;Aufgabe 2
 
+(define xs (list 1 2 3 4 5 6 7 8 9 10 11 22 33 81))
+
+;1.
+(map (λ (x) (* x x)) xs)
+
+;2.
+(filter (λ (x)
+          (cond [(zero? (remainder x 11)) x]
+                [(zero? (remainder x 9)) x]
+                [else #f]))
+        xs)
+
+;3.
+(foldl + 0
+       (filter (λ (x)
+                 (if (and (not (zero? (remainder x 2))) (> x 6)) x #f))
+               xs))
+
+;4.
+(define predicateAndInverse (λ (p? xs)
+                              (cons
+                               (filter p? xs)
+                               (filter (negate p?) xs))))
+
+(predicateAndInverse odd? xs)
+
+
+
