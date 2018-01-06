@@ -68,7 +68,7 @@ TODO
 ;1. Repräsentation einer Spielkarte als Liste von Eigenschaften.
 ;2. Die Eigenschaften werden mit for*/list kombiniert.
 
-(define cards
+(define deck
   (for*/list ([number numbers] [pattern patterns] [mode modes] [color colors])
     (list number pattern mode color)))
 
@@ -97,6 +97,6 @@ TODO
 
 ;4. Karten ziehen
 
-(define draw-from-deck (λ () (take (shuffle cards) 12)))
+(define draw-from-deck (λ () (take (shuffle deck) 12)))
 
-(show-list-of-cards draw-from-deck)
+(show-list-of-cards (draw-from-deck))
