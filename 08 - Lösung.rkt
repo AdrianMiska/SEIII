@@ -65,22 +65,28 @@ TODO
 (define modes '(outline solid hatched))
 (define colors '(red green blue))
 
-;Repräsentation einer Spielkarte als Liste von Eigenschaften. Die Eigenschaften werden mit for*/list kombiniert.
+;1. Repräsentation einer Spielkarte als Liste von Eigenschaften.
+;2. Die Eigenschaften werden mit for*/list kombiniert.
 
 (define cards
   (for*/list ([number numbers] [pattern patterns] [mode modes] [color colors])
     (list number pattern mode color)))
 
-(define validCombination (λ (prop1 prop2 prop3)
+;Anzeigen einer Liste von Karten
+(define show-list-of-cards (λ (cards)
+                          (map (curry apply show-set-card) cards)))
+
+
+(define valid-combination (λ (prop1 prop2 prop3)
                            (or (and (eq? prop1 prop2) (eq? prop2 prop3) (eq? prop1 prop3))
                                (and (not (eq? prop1 prop2)) (not (eq? prop2 prop3)) (not (eq? prop1 prop3)) ))))
-
+;3. SET prüfen
 (define is-a-set? (λ (cardList)
                     (let ([card1 (car cardList)] [card2 (cadr cardList)] [card3 (caddr cardList)])
-                   (and (validCombination (car card1) (car card2) (car card3))
-                        (validCombination (cadr card1) (cadr card2) (cadr card3))
-                        (validCombination (caddr card1) (caddr card2) (caddr card3))
-                        (validCombination (cadddr card1) (cadddr card2) (cadddr card3))))))
+                   (and (valid-combination (car card1) (car card2) (car card3))
+                        (valid-combination (cadr card1) (cadr card2) (cadr card3))
+                        (valid-combination (caddr card1) (caddr card2) (caddr card3))
+                        (valid-combination (cadddr card1) (cadddr card2) (cadddr card3))))))
 
 (is-a-set? '((2 red oval hatched)
              (2 red rectangle hatched)
@@ -89,8 +95,8 @@ TODO
              (2 green rectangle outline)
              (2 green rectangle solid)))
 
+;4. Karten ziehen
+
 (define draw-from-deck (λ () (take (shuffle cards) 12)))
 
-(map (curry apply show-set-card) (draw-from-deck))
-
-
+(show-list-of-cards draw-from-deck)
