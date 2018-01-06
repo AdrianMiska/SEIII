@@ -57,4 +57,22 @@ TODO
 (predicateAndInverse odd? xs)
 
 
+;;; Aufgabe 3
+(require se3-bib/setkarten-module)
+
+(define numbers '(1 2 3))
+(define patterns '(waves oval rectangle))
+(define modes '(outline solid hatched))
+(define colors '(red green blue))
+
+;Repräsentation einer Spielkarte als Liste von Eigenschaften. Die Eigenschaften werden mit for*/list kombiniert.
+
+(define cards
+  (for*/list ([number numbers] [pattern patterns] [mode modes] [color colors])
+    (list number pattern)))
+
+
+(define is-a-set? (λ (cardList)
+                   void)) ;TODO
+
 
