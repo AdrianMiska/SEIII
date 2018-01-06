@@ -71,8 +71,22 @@ TODO
   (for*/list ([number numbers] [pattern patterns] [mode modes] [color colors])
     (list number pattern)))
 
+(define validCombination (λ (prop1 prop2 prop3)
+                           (or (and (eq? prop1 prop2) (eq? prop2 prop3) (eq? prop1 prop3))
+                               (and (not (eq? prop1 prop2)) (not (eq? prop2 prop3)) (not (eq? prop1 prop3)) ))))
 
 (define is-a-set? (λ (cardList)
-                   void)) ;TODO
+                    (let ([card1 (car cardList)] [card2 (cadr cardList)] [card3 (caddr cardList)])
+                   (and (validCombination (car card1) (car card2) (car card3))
+                        (validCombination (cadr card1) (cadr card2) (cadr card3))
+                        (validCombination (caddr card1) (caddr card2) (caddr card3))
+                        (validCombination (cadddr card1) (cadddr card2) (cadddr card3))))))
+
+(is-a-set? '((2 red oval hatched)
+             (2 red rectangle hatched)
+             (2 red wave hatched)))
+(is-a-set? '((2 red rectangle outline)
+             (2 green rectangle outline)
+             (2 green rectangle solid)))
 
 
