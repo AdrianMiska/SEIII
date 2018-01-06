@@ -59,6 +59,7 @@ TODO
 
 ;;; Aufgabe 3
 (require se3-bib/setkarten-module)
+(require se3-bib/kombinatorik-module)
 
 (define numbers '(1 2 3))
 (define patterns '(waves oval rectangle))
@@ -83,7 +84,8 @@ TODO
 ;3. SET prüfen
 (define is-a-set? (λ (cardList)
                     (let ([card1 (car cardList)] [card2 (cadr cardList)] [card3 (caddr cardList)])
-                   (and (valid-combination (car card1) (car card2) (car card3))
+                   (and (= 3 (length cardList))
+                        (valid-combination (car card1) (car card2) (car card3))
                         (valid-combination (cadr card1) (cadr card2) (cadr card3))
                         (valid-combination (caddr card1) (caddr card2) (caddr card3))
                         (valid-combination (cadddr card1) (cadddr card2) (cadddr card3))))))
@@ -95,8 +97,17 @@ TODO
              (2 green rectangle outline)
              (2 green rectangle solid)))
 
-;4. Karten ziehen
 
-(define draw-from-deck (λ () (take (shuffle deck) 12)))
+;4.
+;Karten ziehen
+(define draw-from-deck (λ (n) (take (shuffle deck) n)))
 
-(show-list-of-cards (draw-from-deck))
+(define temp (draw-from-deck 12))
+
+(show-list-of-cards temp)
+
+;Alle SETs suchen
+(define all-3-n-sublists (λ (xs)
+                           (filter (λ (x) (if (= (length x) 3) #t #f)) (subs xs))))
+
+(map show-list-of-cards (filter is-a-set? (all-3-n-sublists temp)))
