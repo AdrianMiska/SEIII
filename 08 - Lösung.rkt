@@ -23,8 +23,20 @@ den wir beim Aufruf von schweinchen-in-der-mitte, in unserem Fall 4, gesetzt hab
 
 4.
 
+(foldl (curry + 2) 3 '(3 4 5))
+-> 21, da foldl den Startwert 3 mit der Funktion "(curry + 2)" mit jedem Element "inkrementiert" also natürlichsprachlich  3  +2+3  +2+4  +2+5 = 21
 
-TODO
+
+(map gerade-oder-ungerade '(4 587 74 69 969 97 459 4))
+-> '(gerade ungerade gerade ungerade ungerade ungerade ungerade gerade), weil map die gegebene Funktion "gerade-oder-ungerade" auf jedes Element der Liste anwendet
+   und die Resultate wieder als Liste zurückgibt.
+
+(filter number? '((ab) () 1 (()) 4 -7 "a"))
+-> '(1 4 -7), weil filter das Prädikat "number?" auf alle Elemente der Liste anwendet und eine Liste mit allen Elementen zurückgibt, die das Prädikat erfüllen.
+   (ab), (), (()) und "a" sind keine Zahlen
+
+((compose (curry foldl + 0) (curry filter (curryr < 0))) '(5682 48 24915 -45 -6 48))
+-> -51, weil compose die Funktionen "(curry foldl + 0)" und "(curry filter (curryr < 0)))" aneinanderreiht und dann die Liste als Parameter übergibt.
 
 |#
 
