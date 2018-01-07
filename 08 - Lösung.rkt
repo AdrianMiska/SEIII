@@ -28,7 +28,7 @@ den wir beim Aufruf von schweinchen-in-der-mitte, in unserem Fall 4, gesetzt hab
 
 
 (map gerade-oder-ungerade '(4 587 74 69 969 97 459 4))
--> '(gerade ungerade gerade ungerade ungerade ungerade ungerade gerade), weil map die gegebene Funktion "gerade-oder-ungerade" auf jedes Element der Liste anwendet
+-> '(ungerade gerade ungerade gerade gerade gerade gerade ungerade), weil map die gegebene Funktion "gerade-oder-ungerade" auf jedes Element der Liste anwendet
    und die Resultate wieder als Liste zurückgibt.
 
 (filter number? '((ab) () 1 (()) 4 -7 "a"))
