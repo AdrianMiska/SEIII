@@ -55,3 +55,14 @@ swindle/misc )
                        :magazine "Heimwerkerpraxis für Anfänger"
                        :bandnummer 500
                        :heftnummer 3))
+;;;Aufgabe 1.2
+(defgeneric* cite ((LB Literaturbeitrag)))
+(defmethod cite ((LB Literaturbeitrag))
+  (string-append (autor LB) " (" (number->string (year LB)) "), " (titel LB)))
+(defmethod cite ((LB Buch))
+  (string-append (autor LB) " (" (number->string (year LB)) "), " (titel LB) ", Band "
+                 (number->string (seriennummer LB)) " der Reihe: " (series LB) ". " (verlag LB) "."))
+(defmethod cite ((LB Zeitschriftenartikel))
+  (string-append (autor LB) " (" (number->string (year LB)) "), "
+                 (titel LB) ". " (magazine LB) ", Band " (number->string (bandnummer LB)) ", Heft "
+                 (number->string (heftnummer LB)) "."))
