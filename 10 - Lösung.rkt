@@ -34,7 +34,7 @@
                          (let ([max (λ (x y) (if (> x y) x y))])
                            (foldl max (car xs) (cdr xs)))))
 
-(define remove0 (λ (xs) (filter (negate zero?) xs)))
+(define remove0 (λ (xs) (filter (negate (curry eq? 0)) xs)))
 
 (define all-true (λ (xs)
                    (equal? (filter (negate false?) xs) xs)))
@@ -72,16 +72,16 @@
 
 ;Aufgabe 1.2
 
-(define index->quadrant (λ (x) (+ (* 3 (floor (/ (index->spalte x) 3)))
-                                  (floor (/ (modulo (index->zeile x) 9) 3)))))
-(define index->spalte (λ (x) (floor(/ x 9))))
-(define index->zeile (λ (x) (modulo x 9)))
+(define index->quadrant (λ (x) (+ (* 3 (floor (/ (index->zeile x) 3)))
+                                  (floor (/ (modulo (index->spalte x) 9) 3)))))
+(define index->zeile (λ (x) (floor(/ x 9))))
+(define index->spalte (λ (x) (modulo x 9)))
 
-(define zero-indices (λ (xs)
-                       (for/list ([i xs]
-                                  [n (in-naturals)]
-                                  #:when (zero? i))
-                         n)))
+(define predicate-indices (λ (pred xs)
+                            (for/list ([i xs]
+                                       [n (in-naturals)]
+                                       #:when (pred i))
+                              n)))
 
 (define zahl-möglich (λ (spiel zahl index)
                        (let ([zeile (spiel->einträge spiel (zeile->indizes(index->zeile index)))]
@@ -98,9 +98,27 @@
 
 (define markiere-ausschluss (λ (spiel zahl)
                               (let* ([returnee (vector-copy spiel)]
-                                     [0-indices (zero-indices spiel)]
-                                     [x-indices (filter (curry zahl-möglich spiel zahl) 0-indices)])
+                                     [0-indices (predicate-indices zero? spiel)]
+                                     [x-indices (filter (negate (curry zahl-möglich spiel zahl)) 0-indices)])
                                 (begin
                                   (map (curry my-vector-set! returnee 'X) x-indices)
                                   returnee))))
+
+(define eindeutige-position? (λ (spiel zahl index)
+                               (let ([zeile (spiel->einträge spiel (zeile->indizes(index->zeile index)))]
+                                     [spalte (spiel->einträge spiel (spalte->indizes (index->spalte index)))]
+                                     [quadrant (spiel->einträge spiel (quadrant->indizes (index->quadrant index)))]
+                                     [is0 ((curry eq? 0) (car (spiel->einträge spiel (list index))))])
+                                 (and
+                                  is0
+                                  (or
+                                   (= 1 (count (curry eq? 0) zeile))
+                                   (= 1 (count (curry eq? 0) spalte))
+                                   (= 1 (count (curry eq? 0) quadrant)))))))
+
+(define eindeutige-positionen (λ (spiel zahl)
+                                (let* ([ausschluss (markiere-ausschluss spiel zahl)]
+                                       [not-x-indices (predicate-indices (negate (curry eq? 'X)) ausschluss)])
+                                  (filter (curry eindeutige-position? ausschluss zahl) not-x-indices))))
+
 
