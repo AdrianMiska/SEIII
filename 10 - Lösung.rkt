@@ -121,4 +121,18 @@
                                        [not-x-indices (predicate-indices (negate (curry eq? 'X)) ausschluss)])
                                   (filter (curry eindeutige-position? ausschluss zahl) not-x-indices))))
 
+(define setze-zahl (λ (zahl spiel)
+                     (let ([eindeutig (eindeutige-positionen spiel zahl)]
+                           [returnee (vector-copy spiel)])
+                       (begin
+                         (map (curry my-vector-set! returnee zahl) eindeutig)
+                         returnee))))
 
+(define löse-spiel (λ (spiel)
+                     (let([nächste-runde (foldl setze-zahl spiel (range 1 10))])
+                       (cond [(spiel->gelöst? nächste-runde) nächste-runde]
+                             [(equal? nächste-runde spiel) "keine Lösung (ohne Backtracking)"] ;nichts wurde gesetzt
+                             [else (löse-spiel nächste-runde)]
+                             ))))
+
+(löse-spiel spiel)
