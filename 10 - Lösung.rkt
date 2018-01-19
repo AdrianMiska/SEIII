@@ -92,9 +92,15 @@
                           (liste->konsistent? (cons zahl spalte))
                           (liste->konsistent? (cons zahl quadrant)))))) ;zahl möglich = passt in alle noch rein
 
+(define my-vector-set! (λ (vec val index)
+                         (vector-set! vec index val))) ;convenience method
+
 
 (define markiere-ausschluss (λ (spiel zahl)
                               (let* ([returnee (vector-copy spiel)]
                                      [0-indices (zero-indices spiel)]
                                      [x-indices (filter (curry zahl-möglich spiel zahl) 0-indices)])
-                                "TODO make vector x at x-indices")))
+                                (begin
+                                  (map (curry my-vector-set! returnee 'X) x-indices)
+                                  returnee))))
+
